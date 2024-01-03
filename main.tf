@@ -13,7 +13,7 @@ module "subnets" {
   source = "./subnets"
   vpc_id = aws_vpc.main.id
   for_each = var.subnets
-  cidr_block = each.value["cider_block"]
+  cidr_block = each.value["cidr_block"]
   subnet_name= each.key
   env = var.env
   tags = var.tags
