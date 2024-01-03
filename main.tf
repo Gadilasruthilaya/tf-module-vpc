@@ -17,5 +17,6 @@ module "subnets" {
   subnet_name= each.key
   env = var.env
   tags = var.tags
+  az = var.az
 
 }
