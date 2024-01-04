@@ -43,3 +43,16 @@ resource "aws_route" "route_igw" {
 
 
 }
+
+resource "aws_eip" "ngb" {
+  domain   = "vpc"
+}
+
+resource "aws_nat_gateway" "example" {
+  allocation_id = aws_eip.ngb.id
+  subnet_id     =  lookup(lookup(module.subnets, "public", null), "subnet_ids", null)[0]
+  tags = merge({
+    Name = "${var.env}-igw"
+  })
+
+}
