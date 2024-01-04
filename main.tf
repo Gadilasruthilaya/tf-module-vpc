@@ -27,3 +27,11 @@ resource "aws_vpc_peering_connection" "foo" {
   vpc_id        = var.default_vpc_id
   auto_accept = true
 }
+
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "${var.env}"
+  }
+}
