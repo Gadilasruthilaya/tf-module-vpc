@@ -22,7 +22,7 @@ module "subnets" {
 }
 
 
-resource "aws_vpc_peering_connection" "foo" {
+resource "aws_vpc_peering_connection" "peer" {
   peer_vpc_id   = aws_vpc.main.id
   vpc_id        = var.default_vpc_id
   auto_accept = true
@@ -34,4 +34,12 @@ resource "aws_internet_gateway" "gw" {
   tags = {
     Name = "${var.env}"
   }
+}
+
+resource "aws_route" "route_igw" {
+  route_table_id            = module.subnets["public"].route_table_ids
+  destination_cidr_block    = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.gw.id
+
+
 }
